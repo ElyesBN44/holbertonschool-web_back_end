@@ -26,11 +26,17 @@ module.exports = {
         'WithStatement',
       ],
     },
-    overrides:[
+    overrides: [
       {
         files: ['*.js'],
         excludedFiles: 'babel.config.js',
-      }
-    ]
+      },
+      {
+        files: ['7-main.js', '7-load_balancer.js'],
+        rules: {
+          'jest/prefer-todo': 'off',
+        },
+      },
+    ],
   };
   
