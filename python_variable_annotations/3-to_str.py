@@ -15,3 +15,4 @@ def to_str(n: float) -> str:
         str: The string representation of the input number
     """
     return str(n)
+    
