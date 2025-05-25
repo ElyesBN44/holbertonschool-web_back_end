@@ -1,4 +1,4 @@
-import { readDatabase } from '../utils.js';
+import readDatabase from '../utils';
 
 class StudentsController {
   static getAllStudents(req, res) {
@@ -6,13 +6,12 @@ class StudentsController {
 
     readDatabase(path)
       .then((fields) => {
-        const sortedFields = Object.keys(fields).sort((a, b) =>
-          a.toLowerCase().localeCompare(b.toLowerCase())
-        );
+        const sortedFields = Object.keys(fields).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
         let result = 'This is the list of our students';
-        sortedFields.forEach(field => {
-          result += `\nNumber of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`;
+        sortedFields.forEach((field) => {
+          result += `\nNumber of students in ${field}: ${fields[field].length}. `
+                     + `List: ${fields[field].join(', ')}`;
         });
 
         res.status(200).send(result);
@@ -25,11 +24,12 @@ class StudentsController {
     const { major } = req.params;
 
     if (major !== 'CS' && major !== 'SWE') {
-      return res.status(500).send('Major parameter must be CS or SWE');
+      res.status(500).send('Major parameter must be CS or SWE');
+      return;
     }
 
     readDatabase(path)
-      .then(fields => {
+      .then((fields) => {
         const names = fields[major];
         res.status(200).send(`List: ${names.join(', ')}`);
       })
